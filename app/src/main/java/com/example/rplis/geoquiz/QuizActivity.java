@@ -17,30 +17,17 @@ public class QuizActivity extends AppCompatActivity implements QuestionModel.Que
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
+
         if (savedInstanceState != null) {
             this.model = new QuestionModel(this, savedInstanceState.getInt("currentQuestion"));
         } else {
             this.model = new QuestionModel(this, 0);
         }
-
+        nextButton = (Button) findViewById(R.id.next_button);
         trueButton = (Button) findViewById(R.id.true_button);
-        trueButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(QuizActivity.this, R.string.correct_toast, Toast.LENGTH_SHORT).show();
-            }
-        });
         falseButton = (Button) findViewById(R.id.false_button);
-        falseButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(QuizActivity.this, R.string.incorrect_toast, Toast.LENGTH_SHORT).show();
-            }
-        });
         questionTextView = (TextView) findViewById(R.id.question_text_view);
         this.displayNextQuestion();
-
-        nextButton = (Button) findViewById(R.id.next_button);
     }
 
     @Override
@@ -49,18 +36,24 @@ public class QuizActivity extends AppCompatActivity implements QuestionModel.Que
         super.onSaveInstanceState(outState);
     }
 
+    // Methods called from xml
+
     public void nextButtonClicked(View v) {
         this.model.nextQuestionRequested();
     }
 
+    public void trueButtonClicked(View v) {
+        Toast.makeText(this, R.string.correct_toast, Toast.LENGTH_SHORT).show();
+    }
+
+    public void falseButtonClicked(View v) {
+        Toast.makeText(this, R.string.incorrect_toast, Toast.LENGTH_SHORT).show();
+    }
+
+    // QuestionListener methods
+
     public void displayNextQuestion() {
         questionTextView.setText(this.model.getCurrentQuestionId());
     }
-
-    private Question[] questionBank = new Question[] {
-            new Question(R.string.question_africa, false),
-            new Question(R.string.question_asia, true),
-            new Question(R.string.question_oceans, true)
-    };
 
 }
