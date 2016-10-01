@@ -2,11 +2,13 @@ package com.example.rplis.geoquiz;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.*;
 
 public class QuizActivity extends AppCompatActivity implements QuestionModel.QuestionListener {
 
+    private static final String TAG = "QuizActivity";
     private Button trueButton;
     private Button falseButton;
     private Button nextButton;
@@ -16,6 +18,7 @@ public class QuizActivity extends AppCompatActivity implements QuestionModel.Que
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d(TAG, "onCreate() Called");
         setContentView(R.layout.activity_quiz);
 
         if (savedInstanceState != null) {
@@ -32,8 +35,39 @@ public class QuizActivity extends AppCompatActivity implements QuestionModel.Que
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        outState.putInt("currentQuestion", this.model.getCurrentQuestionIndex());
         super.onSaveInstanceState(outState);
+        outState.putInt("currentQuestion", this.model.getCurrentQuestionIndex());
+        Log.d(TAG, "onSaveInstanceState() Called");
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.d(TAG, "onStart() Called");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.d(TAG, "onPause() Called");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d(TAG, "onResaume() Called");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.d(TAG, "onStop() Called");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.d(TAG, "onDestroy() Called");
     }
 
     // Methods called from xml
