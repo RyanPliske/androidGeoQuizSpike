@@ -32,7 +32,7 @@ public class QuizActivity extends AppCompatActivity implements QuestionModel.Que
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        outState.putInt("currentQuestion", this.model.currentQuestionIndex);
+        outState.putInt("currentQuestion", this.model.getCurrentQuestionIndex());
         super.onSaveInstanceState(outState);
     }
 
@@ -43,11 +43,19 @@ public class QuizActivity extends AppCompatActivity implements QuestionModel.Que
     }
 
     public void trueButtonClicked(View v) {
-        Toast.makeText(this, R.string.correct_toast, Toast.LENGTH_SHORT).show();
+        checkAnswer(true);
     }
 
     public void falseButtonClicked(View v) {
-        Toast.makeText(this, R.string.incorrect_toast, Toast.LENGTH_SHORT).show();
+        checkAnswer(false);
+    }
+
+    private void checkAnswer(boolean usersAnswer) {
+        int messageResId = R.string.incorrect_toast;
+        if (usersAnswer == this.model.getCurrentQuestionAnswer()) {
+            messageResId = R.string.correct_toast;
+        }
+        Toast.makeText(this, messageResId, Toast.LENGTH_SHORT).show();
     }
 
     // QuestionListener methods

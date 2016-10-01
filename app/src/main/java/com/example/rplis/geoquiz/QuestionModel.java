@@ -7,7 +7,7 @@ public class QuestionModel {
     }
 
     public QuestionListener listener;
-    public int currentQuestionIndex;
+    private int currentQuestionIndex;
     private Question[] questionBank;
 
 
@@ -15,6 +15,14 @@ public class QuestionModel {
         this.questionBank = this.generateQuestionBank();
         this.listener = listener;
         this.currentQuestionIndex = currentQuestionIndex;
+    }
+
+    public boolean getCurrentQuestionAnswer() {
+        return this.questionBank[currentQuestionIndex].isTrue();
+    }
+
+    public int getCurrentQuestionIndex() {
+        return this.currentQuestionIndex;
     }
 
     public int getCurrentQuestionId() {
